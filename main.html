@@ -6,10 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <!-- <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" -->
-  <!-- type="text/css" /> -->
-  <!-- <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->
-  <!-- <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script> -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
 
   <style>
@@ -152,9 +148,7 @@
   <div id="container" style="width:100vw; position: relative;">
   </div>
 
-  <!-- <script src='main.js'></script> -->
   <script src="https://cdn.plot.ly/plotly-2.3.0.min.js"></script>
-  <!-- <script src='main.js'></script> -->
   <script>
     var keydownLaunched = false
     var width
@@ -345,12 +339,20 @@
     }
 
     function procName(name) {
-      let tmp = name.replace('.jpg', '').split('-').slice(1).join(' ')
-      let fileName =
-        `${tmp.slice(0, 4)}-${tmp.slice(4, 6)}-${tmp.slice(6, 8)} ${tmp.slice(9, 11)}:00`
-      // let fileName =
-      //   `${tmp.slice(0, 4)}-${tmp.slice(4, 6)}-${tmp.slice(6, 8)} ${tmp.slice(9, 11)}:${tmp.slice(11, 13)}`
-      return fileName
+        console.log(name)
+        let tmp = name.replace('.jpg', '').replace('.png', '').replace('.jpeg', '');
+        console.log(tmp)
+        // 提取日期和時間部分
+        let year = tmp.slice(0, 4);
+        let month = tmp.slice(4, 6);
+        let day = tmp.slice(6, 8);
+        let hour = tmp.slice(9, 11);
+        let minute = '00';
+
+        // 格式化新的檔名
+        let fileName = `${year}/${month}/${day} ${hour}:${minute}`;
+        
+        return fileName
     }
 
     async function readFile(files) {
@@ -524,7 +526,7 @@
         if (text.length > 0) {
           console.log('got txt file')
           if (text.length > 1) {
-            alert('找到不只一筆分級數據，請選定一筆數據。')
+            alert('找到不只一筆分級資料，請選定一筆資料。')
           } else {
             visibLev = await readText(text[0])
             setTimeout(() => {
